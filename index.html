@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/lib.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <title>Todo list</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="./img/logo.png" alt="">
+                <div class="slogan">
+                    <p class="slogan mt-1">Let’s get shit done!</p>
+                    <img class="ml-1" src="./img/peace 1.png" alt="">
+                </div>
+            </div>
+
+            <div class="newTask mt-1" onclick="openFormNew()">
+                <i class="fa-solid fa-plus"></i>
+                <p>New task</p>
+            </div>
+        </header>
+
+        <div id="overlay" onclick="closeForm()">
+        </div>
+
+        <form id="form-new" class="form-new hide" method="post">
+            <i onclick="closeForm()" class="close fa fa-times"></i>
+            <p class="title-form-new">Add new todo</p>
+            <input onblur="validateInput(this)" class="input-fail" type="text" name="Category" id="new-category" placeholder="Category Etc: Marketing" required>
+            <input onblur="validateInput(this)" class="input-fail" type="text" name="title" id="new-title" placeholder="Title" required>
+            <textarea onblur="validateInput(this)" class="input-fail" name="description" id="new-description" placeholder="Content" cols="30" rows="10" required></textarea>
+            <input type="submit" value="Submit">
+        </form>
+
+        <form id="form-edit" class="form-new hide" method="post">
+            <i onclick="closeForm()" class="close fa fa-times"></i>
+            <p class="title-form-new">Edit todo</p>
+            <input onblur="validateInput(this)" class="input-success" type="text" name="" id="edit-category" placeholder="Category Etc: Marketing" required>
+            <input onblur="validateInput(this)" class="input-success" type="text" name="" id="edit-title" placeholder="Title" required>
+            <textarea onblur="validateInput(this)" class="input-success" name="" id="edit-description" placeholder="Content" cols="30" rows="10" required></textarea>
+            <div class="radioButton">
+                <div class="option">
+                    <input type="radio" name="todoList" id="todo" value="todo">
+                    <label for="todo">Todo</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="todoList" id="doing" value="todo">
+                    <label for="doing">Doing</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="todoList" id="finished" value="todo">
+                    <label for="finished">Finished</label>
+                </div>
+           </div>
+            <input type="submit" value="Submit">
+        </form>
+
+        <div class="content mt-2">
+
+            <div class="col-3 todo mr-4" style="--clr: #00a6da;">
+                <div class="title" style="--clr: #00a6da;">
+                    Todo
+                    <div class="tag" style="--tag: #00CDDA;">0</div>
+                </div>
+
+                <div id="contentTodo" class="contentTodo card-container col-scroll mt-1">
+                    <!-- <div class="card mt-4">
+                        <div class="head-card">
+                            <div class="category">
+                                <a href="#">Marketing</a>
+                                <p class="mt-1">Write SEO article for new product</p>
+                            </div>
+                            <div class="icons mt-1 ml-2">
+                                <a onclick="openFormEdit(this)" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a onclick="removeCard(this)" href="#"><i class="fa-solid fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="line mt-2"></div>
+                        <div class="description mt-2">
+                            This is an existential moment for effective altruism and the rationalist community writ-large. 
+                        </div>
+                        <div class="date mt-2">
+                            <i class="fa-regular fa-clock"></i>
+                            June 30, 2022
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-3 doing mr-4" style="--clr: #CCAC038F;">
+                <div class="title" style="--clr: #CCAC038F;">
+                    Doing
+                    <div class="tag" style="--tag: #DBB700;">0</div>
+                </div>
+                
+                <div id="contentDoing" class="contentDoing card-container col-scroll mt-1">
+                    <!-- <div class="card mt-4">
+                        <div class="head-card">
+                            <div class="category">
+                                <a href="#">Marketing</a>
+                                <p class="mt-1">Write SEO article for new product</p>
+                            </div>
+                            <div class="icons mt-1 ml-2">
+                                <a onclick="openFormEdit(this)" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a onclick="removeCard(this)" href="#"><i class="fa-solid fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="line mt-2"></div>
+                        <div class="description mt-2">
+                            This is an existential moment for effective altruism and the rationalist community writ-large. 
+                        </div>
+                        <div class="date mt-2">
+                            <i class="fa-regular fa-clock"></i>
+                            June 30, 2022
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-3 finished mr-4" style="--clr: #3BC057;">
+                <div class="title" style="--clr: #3BC057;">
+                    Finished
+                    <div class="tag" style="--tag: #69CE7E;"">0</div>
+                </div>
+
+                <div id="contentFinished" class="contentFinished card-container col-scroll mt-1">
+                    <!-- <div class="card mt-4">
+                        <div class="head-card">
+                            <div class="category">
+                                <a href="#">Marketing</a>
+                                <p class="mt-1">Write SEO article for new product</p>
+                            </div>
+                            <div class="icons mt-1 ml-2">
+                                <a onclick="openFormEdit(this)" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a onclick="removeCard(this)" href="#"><i class="fa-solid fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="line mt-2"></div>
+                        <div class="description mt-2">
+                            This is an existential moment for effective altruism and the rationalist community writ-large. 
+                        </div>
+                        <div class="date mt-2">
+                            <i class="fa-regular fa-clock"></i>
+                            June 30, 2022
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>

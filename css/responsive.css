@@ -1,0 +1,26 @@
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .newTask {
+        border: 1px solid #ccc;
+    }
+
+    .form-new  {
+        width: 80%;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .col-3 {
+        width: 100%;
+    }
+
+    .col-scroll {
+        height: 320px;
+    }
+}
